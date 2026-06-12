@@ -3826,7 +3826,9 @@ var onRequest$1 = defineMiddleware(async (context, next) => {
   if (!context.url.pathname.startsWith(PROTECTED_PREFIX)) {
     return next();
   }
-  const expected = (process.env.PRIVATE_PASSWORD ?? "").trim();
+  const fromMeta = "letmein";
+  typeof process !== "undefined" ? process.env?.PRIVATE_PASSWORD : void 0;
+  const expected = fromMeta.trim();
   if (!expected) {
     return new Response("Server misconfiguration: PRIVATE_PASSWORD not set", {
       status: 500
@@ -6410,7 +6412,7 @@ async function middleware(request, context) {
       method: request.method,
       headers: {
         ...Object.fromEntries(request.headers.entries()),
-        "x-astro-middleware-secret": "289f2cde-f575-4f0d-90ec-fa0501cbc0a3",
+        "x-astro-middleware-secret": "a127189c-8592-45d6-9178-6ae68b803783",
         "x-astro-path": request.url.replace(origin, ""),
         "x-astro-locals": trySerializeLocals(locals)
       },

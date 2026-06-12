@@ -8,7 +8,9 @@ const onRequest$1 = defineMiddleware(async (context, next) => {
   if (!context.url.pathname.startsWith(PROTECTED_PREFIX)) {
     return next();
   }
-  const expected = (process.env.PRIVATE_PASSWORD ?? "").trim();
+  const fromMeta = "letmein";
+  typeof process !== "undefined" ? process.env?.PRIVATE_PASSWORD : void 0;
+  const expected = (fromMeta).trim();
   if (!expected) {
     return new Response("Server misconfiguration: PRIVATE_PASSWORD not set", {
       status: 500

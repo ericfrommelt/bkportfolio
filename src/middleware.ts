@@ -8,7 +8,10 @@ export const onRequest = defineMiddleware(async (context, next) => {
     return next();
   }
 
-  const expected = (process.env.PRIVATE_PASSWORD ?? "").trim();
+  const fromMeta = (import.meta.env as Record<string, string | undefined>).PRIVATE_PASSWORD;
+  const fromProcess =
+    typeof process !== "undefined" ? process.env?.PRIVATE_PASSWORD : undefined;
+  const expected = (fromMeta ?? fromProcess ?? "").trim();
   if (!expected) {
     return new Response("Server misconfiguration: PRIVATE_PASSWORD not set", {
       status: 500,
