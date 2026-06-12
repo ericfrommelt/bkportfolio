@@ -13,23 +13,23 @@
 		},
 		{
 			"src": "^/_server-islands/([^/]+?)/?$",
-			"dest": "_middleware"
+			"dest": "_render"
 		},
 		{
 			"src": "^/_image/?$",
-			"dest": "_middleware"
+			"dest": "_render"
 		},
 		{
 			"src": "^/work02/?$",
-			"dest": "_middleware"
+			"dest": "_render"
 		},
 		{
 			"src": "^/404/?$",
-			"dest": "_middleware"
+			"dest": "_render"
 		},
 		{
 			"src": "^/.*$",
-			"dest": "_middleware",
+			"dest": "_render",
 			"status": 404
 		}
 	]
