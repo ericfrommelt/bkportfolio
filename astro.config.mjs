@@ -5,6 +5,7 @@ import vercel from '@astrojs/vercel';
 
 // https://astro.build/config
 export default defineConfig({
+  output: 'server',
   vite: {
     plugins: [tailwindcss()],
   },
@@ -12,5 +13,6 @@ export default defineConfig({
     webAnalytics: {
       enabled: true,
     },
+    edgeMiddleware: true,
   }),
 });
