@@ -1,6 +1,6 @@
 // middleware.ts
 export const config = {
-  matcher: '/private/:path*', // the directory to protect
+  matcher: '/Work2/:path*', // the directory to protect
 };
 
 export default function middleware(request: Request) {
