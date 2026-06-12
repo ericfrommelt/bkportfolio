@@ -1,42 +1,9 @@
-import { A as AstroError, b0 as InvalidComponentArgs, b1 as NoImageMetadata, b2 as FailedToFetchRemoteImageDimensions, b3 as RemoteImageNotAllowed, b4 as removeQueryString, av as joinPaths, b5 as ExpectedImage, b6 as isRemotePath, b7 as LocalImageUsedWrongly, b8 as MissingImageDimension, b9 as UnsupportedImageFormat, ba as IncompatibleDescriptorOptions, bb as UnsupportedImageConversion, bc as InvalidImageService, bd as ExpectedImageOptions, be as ExpectedNotESMImage, bf as ImageMissingAlt, u as maybeRenderHead, _ as addAttribute, I as renderTemplate, bg as FontFamilyNotFound, bh as unescapeHTML, bi as MissingGetFontFileRequestUrl } from './sequence_BZO6NhmV.mjs';
-import { t as typeHandlers, a as types, i as isRemoteAllowed, s as spreadAttributes } from './entrypoint_B9bwFGz9.mjs';
+import { A as AstroError, b0 as NoImageMetadata, b1 as FailedToFetchRemoteImageDimensions, b2 as RemoteImageNotAllowed, b3 as removeQueryString, av as joinPaths, b4 as ExpectedImage, b5 as isRemotePath, b6 as LocalImageUsedWrongly, b7 as MissingImageDimension, b8 as UnsupportedImageFormat, b9 as IncompatibleDescriptorOptions, ba as UnsupportedImageConversion, bb as InvalidImageService, bc as ExpectedImageOptions, bd as ExpectedNotESMImage, be as ImageMissingAlt, u as maybeRenderHead, _ as addAttribute, I as renderTemplate, bf as FontFamilyNotFound, bg as unescapeHTML, bh as MissingGetFontFileRequestUrl } from './sequence_CpVCLfVg.mjs';
+import { t as typeHandlers, a as types, i as isRemoteAllowed, s as spreadAttributes } from './entrypoint_DZpsXYk7.mjs';
+import { c as createComponent } from './astro-component_CJBxz7yE.mjs';
 import 'clsx';
 import * as mime from 'mrmime';
 import 'piccolore';
-
-function validateArgs(args) {
-  if (args.length !== 3) return false;
-  if (!args[0] || typeof args[0] !== "object") return false;
-  return true;
-}
-function baseCreateComponent(cb, moduleId, propagation) {
-  const name = moduleId?.split("/").pop()?.replace(".astro", "") ?? "";
-  const fn = (...args) => {
-    if (!validateArgs(args)) {
-      throw new AstroError({
-        ...InvalidComponentArgs,
-        message: InvalidComponentArgs.message(name)
-      });
-    }
-    return cb(...args);
-  };
-  Object.defineProperty(fn, "name", { value: name, writable: false });
-  fn.isAstroComponentFactory = true;
-  fn.moduleId = moduleId;
-  fn.propagation = propagation;
-  return fn;
-}
-function createComponentWithOptions(opts) {
-  const cb = baseCreateComponent(opts.factory, opts.moduleId, opts.propagation);
-  return cb;
-}
-function createComponent(arg1, moduleId, propagation) {
-  if (typeof arg1 === "function") {
-    return baseCreateComponent(arg1, moduleId, propagation);
-  } else {
-    return createComponentWithOptions(arg1);
-  }
-}
 
 function isESMImportedImage(src) {
   return typeof src === "object" || typeof src === "function" && "src" in src;
@@ -651,7 +618,7 @@ async function getConfiguredImageService() {
   if (!globalThis?.astroAsset?.imageService) {
     const { default: service } = await import(
       // @ts-expect-error
-      './sharp_CRZef4sa.mjs'
+      './sharp_L9urEdWu.mjs'
     ).catch((e) => {
       const error = new AstroError(InvalidImageService);
       error.cause = e;

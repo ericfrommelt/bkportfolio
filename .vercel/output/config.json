@@ -20,6 +20,10 @@
 			"dest": "_middleware"
 		},
 		{
+			"src": "^/work02/?$",
+			"dest": "_middleware"
+		},
+		{
 			"src": "^/404/?$",
 			"dest": "_middleware"
 		},
