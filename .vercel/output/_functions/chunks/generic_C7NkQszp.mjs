@@ -1,7 +1,7 @@
-import { A as AstroError, b3 as InvalidComponentArgs, b4 as NoImageMetadata, b5 as FailedToFetchRemoteImageDimensions, b6 as RemoteImageNotAllowed, b7 as removeQueryString, av as joinPaths, b8 as ExpectedImage, b0 as isRemotePath, b9 as LocalImageUsedWrongly, ba as MissingImageDimension, bb as UnsupportedImageFormat, bc as IncompatibleDescriptorOptions, bd as UnsupportedImageConversion, be as InvalidImageService, bf as ExpectedImageOptions, bg as ExpectedNotESMImage, bh as ImageMissingAlt, u as maybeRenderHead, _ as addAttribute, I as renderTemplate, bi as FontFamilyNotFound, bj as unescapeHTML, bk as MissingGetFontFileRequestUrl } from './sequence_Dkms2kb1.mjs';
-import { t as typeHandlers, a as types, i as isRemoteAllowed, s as spreadAttributes } from './entrypoint_spiZKRe2.mjs';
-import * as mime from 'mrmime';
+import { A as AstroError, b0 as InvalidComponentArgs, b1 as NoImageMetadata, b2 as FailedToFetchRemoteImageDimensions, b3 as RemoteImageNotAllowed, b4 as removeQueryString, av as joinPaths, b5 as ExpectedImage, b6 as isRemotePath, b7 as LocalImageUsedWrongly, b8 as MissingImageDimension, b9 as UnsupportedImageFormat, ba as IncompatibleDescriptorOptions, bb as UnsupportedImageConversion, bc as InvalidImageService, bd as ExpectedImageOptions, be as ExpectedNotESMImage, bf as ImageMissingAlt, u as maybeRenderHead, _ as addAttribute, I as renderTemplate, bg as FontFamilyNotFound, bh as unescapeHTML, bi as MissingGetFontFileRequestUrl } from './sequence_BZO6NhmV.mjs';
+import { t as typeHandlers, a as types, i as isRemoteAllowed, s as spreadAttributes } from './entrypoint_B9bwFGz9.mjs';
 import 'clsx';
+import * as mime from 'mrmime';
 import 'piccolore';
 
 function validateArgs(args) {
@@ -651,7 +651,7 @@ async function getConfiguredImageService() {
   if (!globalThis?.astroAsset?.imageService) {
     const { default: service } = await import(
       // @ts-expect-error
-      './sharp_DYJFUgm1.mjs'
+      './sharp_CRZef4sa.mjs'
     ).catch((e) => {
       const error = new AstroError(InvalidImageService);
       error.cause = e;
@@ -1033,4 +1033,105 @@ const assetQueryParams = undefined;
 					});
 							const getImage = async (options) => await getImage$1(options, imageConfig);
 
-export { $$Image as $, baseService as b, createComponent as c, detector as d, fetchWithRedirects as f, getConfiguredImageService as g, imageConfig as i, parseQuality as p, resolveDefaultOutputFormat as r };
+const fnv1a52 = (str) => {
+  const len = str.length;
+  let i = 0, t0 = 0, v0 = 8997, t1 = 0, v1 = 33826, t2 = 0, v2 = 40164, t3 = 0, v3 = 52210;
+  while (i < len) {
+    v0 ^= str.charCodeAt(i++);
+    t0 = v0 * 435;
+    t1 = v1 * 435;
+    t2 = v2 * 435;
+    t3 = v3 * 435;
+    t2 += v0 << 8;
+    t3 += v1 << 8;
+    t1 += t0 >>> 16;
+    v0 = t0 & 65535;
+    t2 += t1 >>> 16;
+    v1 = t1 & 65535;
+    v3 = t3 + (t2 >>> 16) & 65535;
+    v2 = t2 & 65535;
+  }
+  return (v3 & 15) * 281474976710656 + v2 * 4294967296 + v1 * 65536 + (v0 ^ v3 >> 4);
+};
+const etag = (payload, weak = false) => {
+  const prefix = weak ? 'W/"' : '"';
+  return prefix + fnv1a52(payload).toString(36) + payload.length.toString(36) + '"';
+};
+
+async function loadImage(src, headers, imageConfig, isRemote, fetchFn) {
+  try {
+    const res = await fetchWithRedirects({ url: src, headers, imageConfig, fetchFn });
+    if (isRemote && !isRemoteAllowed(res.url, imageConfig)) {
+      return void 0;
+    }
+    if (!res.ok) {
+      return void 0;
+    }
+    return await res.arrayBuffer();
+  } catch {
+    return void 0;
+  }
+}
+
+const GET = async ({ request }) => {
+  try {
+    const imageService = await getConfiguredImageService();
+    if (!("transform" in imageService)) {
+      throw new Error("Configured image service is not a local service");
+    }
+    const url = new URL(request.url);
+    const transform = await imageService.parseURL(url, imageConfig);
+    if (!transform?.src) {
+      throw new Error("Incorrect transform returned by `parseURL`");
+    }
+    let inputBuffer = void 0;
+    const isRemoteImage = isRemotePath(transform.src);
+    if (isRemoteImage && isRemoteAllowed(transform.src, imageConfig) === false) {
+      return new Response("Forbidden", { status: 403 });
+    }
+    const sourceUrl = new URL(transform.src, url.origin);
+    if (!isRemoteImage && sourceUrl.origin !== url.origin) {
+      return new Response("Forbidden", { status: 403 });
+    }
+    inputBuffer = await loadImage(
+      sourceUrl,
+      isRemoteImage ? new Headers() : request.headers,
+      imageConfig,
+      isRemoteImage
+    );
+    if (!inputBuffer) {
+      return new Response("Not Found", { status: 404 });
+    }
+    const { data, format } = await imageService.transform(
+      new Uint8Array(inputBuffer),
+      transform,
+      imageConfig
+    );
+    return new Response(data, {
+      status: 200,
+      headers: {
+        "Content-Type": mime.lookup(format) ?? `image/${format}`,
+        "Cache-Control": "public, max-age=31536000",
+        ETag: etag(data.toString()),
+        Date: (/* @__PURE__ */ new Date()).toUTCString()
+      }
+    });
+  } catch (err) {
+    console.error("Could not process image request:", err);
+    return new Response("Internal Server Error", { status: 500 });
+  }
+};
+
+const _page = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
+  __proto__: null,
+  GET
+}, Symbol.toStringTag, { value: 'Module' }));
+
+const page = () => _page;
+
+const generic___js = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
+  __proto__: null,
+  page
+}, Symbol.toStringTag, { value: 'Module' }));
+
+export { baseService as b, detector as d, generic___js as g, parseQuality as p, resolveDefaultOutputFormat as r };

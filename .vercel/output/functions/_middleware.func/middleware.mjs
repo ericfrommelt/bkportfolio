@@ -3111,7 +3111,7 @@ var ZodFirstPartyTypeKind;
 /* @__PURE__ */ (function(ZodFirstPartyTypeKind2) {
 })(ZodFirstPartyTypeKind || (ZodFirstPartyTypeKind = {}));
 
-// dist/server/chunks/sequence_Dkms2kb1.mjs
+// dist/server/chunks/sequence_BZO6NhmV.mjs
 function defineMiddleware(fn) {
   return fn;
 }
@@ -6412,7 +6412,7 @@ async function middleware(request, context) {
       method: request.method,
       headers: {
         ...Object.fromEntries(request.headers.entries()),
-        "x-astro-middleware-secret": "a127189c-8592-45d6-9178-6ae68b803783",
+        "x-astro-middleware-secret": "3b432399-c41f-42dc-92f5-ad73889154f8",
         "x-astro-path": request.url.replace(origin, ""),
         "x-astro-locals": trySerializeLocals(locals)
       },
