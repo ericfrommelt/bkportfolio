@@ -1,7 +1,6 @@
 import { defineMiddleware } from "astro:middleware";
 
 const PROTECTED_PREFIX = "/work02";
-const USER = "guest";
 const REALM = "Protected Area";
 
 export const onRequest = defineMiddleware(async (context, next) => {
@@ -9,7 +8,7 @@ export const onRequest = defineMiddleware(async (context, next) => {
     return next();
   }
 
-  const expected = import.meta.env.PRIVATE_PASSWORD ?? process.env.PRIVATE_PASSWORD;
+  const expected = (process.env.PRIVATE_PASSWORD ?? "").trim();
   if (!expected) {
     return new Response("Server misconfiguration: PRIVATE_PASSWORD not set", {
       status: 500,
@@ -20,8 +19,10 @@ export const onRequest = defineMiddleware(async (context, next) => {
   if (auth) {
     const [scheme, encoded] = auth.split(" ");
     if (scheme === "Basic" && encoded) {
-      const [user, pass] = atob(encoded).split(":");
-      if (user === USER && pass === expected) {
+      const decoded = atob(encoded);
+      const idx = decoded.indexOf(":");
+      const pass = (idx >= 0 ? decoded.slice(idx + 1) : decoded).trim();
+      if (pass === expected) {
         return next();
       }
     }

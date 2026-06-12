@@ -3821,19 +3821,25 @@ function sequence(...handlers) {
 
 // dist/server/virtual_astro_middleware.mjs
 var PROTECTED_PREFIX = "/work02";
-var USER = "guest";
 var REALM = "Protected Area";
 var onRequest$1 = defineMiddleware(async (context, next) => {
   if (!context.url.pathname.startsWith(PROTECTED_PREFIX)) {
     return next();
   }
-  const expected = "test";
+  const expected = (process.env.PRIVATE_PASSWORD ?? "").trim();
+  if (!expected) {
+    return new Response("Server misconfiguration: PRIVATE_PASSWORD not set", {
+      status: 500
+    });
+  }
   const auth = context.request.headers.get("authorization");
   if (auth) {
     const [scheme, encoded] = auth.split(" ");
     if (scheme === "Basic" && encoded) {
-      const [user, pass] = atob(encoded).split(":");
-      if (user === USER && pass === expected) {
+      const decoded = atob(encoded);
+      const idx = decoded.indexOf(":");
+      const pass = (idx >= 0 ? decoded.slice(idx + 1) : decoded).trim();
+      if (pass === expected) {
         return next();
       }
     }
@@ -6404,7 +6410,7 @@ async function middleware(request, context) {
       method: request.method,
       headers: {
         ...Object.fromEntries(request.headers.entries()),
-        "x-astro-middleware-secret": "5ecb6429-156b-4e23-88c8-e152cf8d2efb",
+        "x-astro-middleware-secret": "289f2cde-f575-4f0d-90ec-fa0501cbc0a3",
         "x-astro-path": request.url.replace(origin, ""),
         "x-astro-locals": trySerializeLocals(locals)
       },

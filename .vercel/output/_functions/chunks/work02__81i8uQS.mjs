@@ -1,7 +1,7 @@
-import { c as createComponent, $ as $$Image } from './_astro_assets_BbysJvKv.mjs';
+import { c as createComponent, $ as $$Image } from './_astro_assets_BUo2nKe2.mjs';
 import 'piccolore';
 import { J as createRenderInstruction, u as maybeRenderHead, _ as addAttribute, I as renderTemplate, b1 as renderHead, b2 as renderSlot } from './sequence_Dkms2kb1.mjs';
-import { r as renderComponent } from './entrypoint_G954JnHR.mjs';
+import { r as renderComponent } from './entrypoint_DlC-dTy7.mjs';
 import 'clsx';
 
 async function renderScript(result, id) {
