@@ -1,7 +1,15 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import Gallery from "../components/Gallery.astro";
 import Lightbox from "../components/Lightbox.astro";
 import type { ImageMetadata } from "astro";
+
+// Default password: "letmein"
+// To change, run in any browser console:
+//   crypto.subtle.digest("SHA-256", new TextEncoder().encode("YOUR_PASSWORD"))
+//     .then(b => console.log([...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,"0")).join("")))
+const PASSWORD_HASH =
+  "1c8bfe8f801d79745c4631d09fff36c82aa37fc4cce4fc946683d7b336b63032";
 
 const all = import.meta.glob<{ default: ImageMetadata }>(
   "../assets/Work2/*.{jpg,JPG,jpeg,png,PNG,gif,GIF,webp}",
@@ -16,32 +24,92 @@ const images = Object.entries(all)
   .map(([, mod]) => mod.default);
 ---
 
-<Layout title="Work 02 — Bora Kang" active="work02">
-  <section class="px-6 md:px-10 max-w-6xl mx-auto pt-16 pb-24">
+<Layout title="Work 02 — Bora Kang" active="work">
+  <section
+    id="gate"
+    class="fixed inset-0 z-30 bg-black flex items-center justify-center px-6"
+  >
+    <form id="gate-form" class="w-full max-w-sm space-y-5 text-center">
+      <h2 class="font-serif text-3xl text-white">Protected</h2>
+      <p class="text-white/70 text-sm font-sans">
+        Enter password to view this work.
+      </p>
+      <input
+        type="password"
+        id="gate-input"
+        autocomplete="current-password"
+        autofocus
+        class="w-full bg-transparent border-b border-white/30 px-1 py-2 text-white text-base font-sans focus:outline-none focus:border-white"
+      />
+      <p
+        id="gate-error"
+        class="text-red-500 text-xs font-sans h-4"
+        aria-live="polite"
+      >
+      </p>
+      <button
+        type="submit"
+        class="font-sans text-xs tracking-widest uppercase text-white/80 hover:text-white border border-white/30 hover:border-white px-6 py-2 transition-colors cursor-pointer"
+      >
+        Enter
+      </button>
+    </form>
+  </section>
+
+  <section
+    id="gate-content"
+    hidden
+    class="px-6 md:px-10 max-w-6xl mx-auto pt-16 pb-24"
+  >
     <h2 class="font-serif text-2xl md:text-3xl text-white mb-6">
       UI &amp; Visual Design
     </h2>
-    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 md:gap-3">
-      {images.map((img) => (
-        <button
-          type="button"
-          class="group block w-full overflow-hidden bg-white/5 cursor-pointer"
-          data-lightbox
-          data-lightbox-group="work02"
-          data-lightbox-src={img.src}
-          aria-label="Open image"
-        >
-          <img
-            src={img.src}
-            width={img.width}
-            height={img.height}
-            alt=""
-            loading="lazy"
-            class="w-full h-full object-cover aspect-square transition-transform duration-300 group-hover:scale-[1.02]"
-          />
-        </button>
-      ))}
-    </div>
+    <Gallery images={images} group="work02" columns={2} />
   </section>
+
   <Lightbox />
+
+  <script define:vars={{ PASSWORD_HASH }}>
+    const STORAGE_KEY = "work02:unlocked";
+    const gate = document.getElementById("gate");
+    const content = document.getElementById("gate-content");
+    const form = document.getElementById("gate-form");
+    const input = document.getElementById("gate-input");
+    const errorEl = document.getElementById("gate-error");
+
+    const reveal = () => {
+      gate.style.display = "none";
+      content.hidden = false;
+    };
+
+    const hash = async (text) => {
+      const buf = await crypto.subtle.digest(
+        "SHA-256",
+        new TextEncoder().encode(text),
+      );
+      return [...new Uint8Array(buf)]
+        .map((b) => b.toString(16).padStart(2, "0"))
+        .join("");
+    };
+
+    if (sessionStorage.getItem(STORAGE_KEY) === "1") {
+      reveal();
+    }
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      errorEl.textContent = "";
+      const value = input.value;
+      if (!value) return;
+      const digest = await hash(value);
+      if (digest === PASSWORD_HASH) {
+        sessionStorage.setItem(STORAGE_KEY, "1");
+        reveal();
+      } else {
+        errorEl.textContent = "Incorrect password.";
+        input.value = "";
+        input.focus();
+      }
+    });
+  </script>
 </Layout>
