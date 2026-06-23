@@ -46,3 +46,7 @@ body {
 a {
   color: inherit;
 }
+
+*, *:hover {
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 28 28'%3E%3Cline x1='14' y1='6' x2='14' y2='22' stroke='black' stroke-width='8' stroke-linecap='square'/%3E%3Cline x1='6' y1='14' x2='22' y2='14' stroke='black' stroke-width='8' stroke-linecap='square'/%3E%3Cline x1='14' y1='6' x2='14' y2='22' stroke='%2322c55e' stroke-width='5' stroke-linecap='square'/%3E%3Cline x1='6' y1='14' x2='22' y2='14' stroke='%2322c55e' stroke-width='5' stroke-linecap='square'/%3E%3C/svg%3E") 14 14, crosshair;
+}
