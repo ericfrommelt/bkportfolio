@@ -2,8 +2,10 @@
 import Layout from "../layouts/Layout.astro";
 import { Image } from "astro:assets";
 import type { ImageMetadata } from "astro";
+import add1 from "../assets/Work2/add1.gif";
+import add2 from "../assets/Work2/add2.gif";
 
-// Default password: "letmein"
+// Default password: "borak1"
 // To change, run in any browser console:
 //   crypto.subtle.digest("SHA-256", new TextEncoder().encode("YOUR_PASSWORD"))
 //     .then(b => console.log([...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,"0")).join("")))
@@ -74,7 +76,7 @@ class="px-2 max-w-6xl mx-auto pt-2 pb-24"
   <h2 class="font-serif text-1xl md:text-3xl lg:text-4xl text-white mb-0 leading-[0.9]">
     Franchise Game Director — <br /> Global Licensed Game Productions
   </h2>
-  <p class="pt-4 text-[13px] md:text-[15px]"><span class="font-bold">Minecraft, Apple Arcade & AAA Cross-Platform Titles </span> <br /> Directed creative approvals across multiple AAA and cross-platform game productions. <br /> Oversaw game design, narrative, visual development, audio, and marketing assets, ensuring franchise integrity throughout development and global launch.<br /><br /></p>
+  <p class="pt-4 text-[13px] md:text-[15px]"><span class="font-bold">Minecraft, Apple Arcade & AAA Cross-Platform Titles </span> <br /> Directed creative approvals for Sanrio IP across multiple AAA and cross-platform game collaborations. <br / > Oversaw game design, narrative, visual development, audio, and marketing assets, ensuring franchise integrity throughout development and global launch.<br /><span class="font-bold">[ Nintendo Switch Hello Kitty Island Adventure, Overwatch, Minecraft, and Roblox ]</span> <br /><br /></p>
 </div>
 <div class="space-y-6">
   {youtubeIds.map((id) => (
@@ -137,9 +139,14 @@ class="px-2 max-w-6xl mx-auto pt-2 pb-24"
   <p class="pt-4 text-[13px] md:text-[15px]"><span class="font-bold">3D Visual Designer for Bing & Microsoft Ecosystem Products </span>— Designed and produced 3D illustration and <br />motion systems for Bing and Microsoft digital experiences. Led visual development from concept to final render,<br /> creating user-facing content across information, commerce, and interactive product surfaces.</p>
 </div>
 <div class="space-y-6">
-  {images.slice(7, 10).map((img) => (
+  {images.slice(7, 9).map((img) => (
     <Image src={img} alt="" widths={[400, 800, 1200, 1600]} sizes="100vw" class="w-full h-auto" loading="lazy" />
   ))}
+  <div class="flex gap-6 items-center justify-center">
+    <Image src={add1} alt="" class="w-1/4 h-auto" loading="lazy" />
+    <Image src={add2} alt="" class="w-1/4 h-auto" loading="lazy" />
+  </div>
+  <Image src={images[9]} alt="" widths={[400, 800, 1200, 1600]} sizes="100vw" class="w-full h-auto" loading="lazy" />
 </div>
 </section>
 
