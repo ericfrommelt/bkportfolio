@@ -4,6 +4,7 @@ import { Image } from "astro:assets";
 import type { ImageMetadata } from "astro";
 import add1 from "../assets/Work2/add1.gif";
 import add2 from "../assets/Work2/add2.gif";
+import more from "../assets/Work2/more.png";
 
 // Default password: "borak1"
 // To change, run in any browser console:
@@ -41,6 +42,7 @@ const youtubeIds = [
       <p class="text-white/70 text-sm font-sans">
         Enter password to view this work.
       </p>
+      <p class="text-sm font-sans">pw: <span class="text-green-500">borak1</span></p>
       <input
         type="password"
         id="gate-input"
@@ -147,6 +149,27 @@ class="px-2 max-w-6xl mx-auto pt-2 pb-24"
     <Image src={add2} alt="" class="w-1/4 h-auto" loading="lazy" />
   </div>
   <Image src={images[9]} alt="" widths={[400, 800, 1200, 1600]} sizes="100vw" class="w-full h-auto" loading="lazy" />
+</div>
+
+<!-- 섹션 4: Hello Kitty YouTube -->
+<div class="mt-16">
+  <h2 class="font-serif text-1xl md:text-3xl lg:text-4xl text-white mb-0 leading-[0.9]">
+    Executive Production & Creative Supervision — <br /> Youtube Hello Kitty Super Cute Series
+  </h2>
+  <p class="pt-4 text-[13px] md:text-[15px]"><span class="font-bold">Executive Producer for a High-Performing YouTube Original Series (1M-5M+ Views per Episode) </span>— Oversaw the end-to-end creative direction of a character IP-based YouTube series, <br />serving as the executive producer on behalf of the IP company. Led cross-functional review and approval across story development, illustration, animation, <br />music, voice-over, and final video production, ensuring brand consistency and narrative quality throughout the series. <br /><br /> </p>
+</div>
+<div class="space-y-6">
+  <Image src={more} alt="" widths={[400, 800, 1200, 1600]} sizes="100vw" class="w-full h-auto" loading="lazy" />
+  <div class="aspect-video w-full">
+    <iframe
+      class="w-full h-full"
+      src="https://www.youtube.com/embed/xNcPN4DWBJQ"
+      title="YouTube video player"
+      frameborder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      allowfullscreen
+    ></iframe>
+  </div>
 </div>
 </section>
 
