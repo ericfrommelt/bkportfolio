@@ -39,10 +39,10 @@ const youtubeIds = [
     class="fixed inset-0 z-30 bg-black flex items-center justify-center px-6"
   >
     <form id="gate-form" class="w-full max-w-sm space-y-5 text-center">
-      <p class="text-white/70 text-sm font-sans">
+      <p class="text-white/70 text-base font-sans">
         Enter password to view this work.
       </p>
-      <p class="text-sm font-sans">pw: <span class="text-green-500">borak1</span></p>
+      <p class="text-base font-sans">pw: <span class="text-green-500">borak1</span></p>
       <input
         type="password"
         id="gate-input"
@@ -58,7 +58,7 @@ const youtubeIds = [
       </p>
       <button
         type="submit"
-        class="font-sans text-xs tracking-widest uppercase text-white/80 hover:text-white border border-white/30 hover:border-white px-6 py-2 transition-colors cursor-pointer"
+        class="font-sans text-sm tracking-widest uppercase text-white/80 hover:text-white border border-white/30 hover:border-white px-6 py-2 transition-colors cursor-pointer"
       >
         Enter
       </button>
@@ -70,7 +70,7 @@ const youtubeIds = [
   hidden
 class="px-2 max-w-6xl mx-auto pt-2 pb-24"
 >
-    <p class="font-sans text-[12px] tracking-normal uppercase text-white/40 mb-2">
+    <p class="font-sans text-[13px] tracking-normal uppercase text-white/40 mb-2">
       WORK 02: SELECTED CLIENT WORK
     </p>
 <!-- 섹션 4: 유튜브 영상들 (맨 위) -->
@@ -78,14 +78,14 @@ class="px-2 max-w-6xl mx-auto pt-2 pb-24"
   <h2 class="font-serif text-1xl md:text-3xl lg:text-4xl text-white mb-0 leading-[0.9]">
     Franchise Game Director — <br /> Global Licensed Game Productions
   </h2>
-  <p class="pt-4 text-[13px] md:text-[15px]"><span class="font-bold">Minecraft, Apple Arcade & AAA Cross-Platform Titles </span> <br /> Directed creative approvals for Sanrio IP across multiple AAA and cross-platform game collaborations. <br / > Oversaw game design, narrative, visual development, audio, and marketing assets, ensuring franchise integrity throughout development and global launch.<br /><span class="font-bold">[ Nintendo Switch Hello Kitty Island Adventure, Overwatch, Minecraft, and Roblox ]</span> <br /><br /></p>
+  <p class="pt-4 text-[14px] md:text-[16px]"><span class="font-bold">Minecraft, Apple Arcade & AAA Cross-Platform Titles </span> <br /> Directed creative approvals for Sanrio IP across multiple AAA and cross-platform game collaborations. <br / > Oversaw game design, narrative, visual development, audio, and marketing assets, ensuring franchise integrity throughout development and global launch.<br /><span class="font-bold"><br /> Nintendo Switch Hello Kitty Island Adventure, Overwatch, Minecraft, and Roblox</span> <br /><br /></p>
 </div>
 <div class="space-y-6">
   {youtubeIds.map((id) => (
     <div class="aspect-video w-full">
       <iframe
-        class="w-full h-full"
-        src={`https://www.youtube.com/embed/${id}`}
+        class="w-full h-full yt-lazy"
+        data-src={`https://www.youtube.com/embed/${id}`}
         title="YouTube video player"
         frameborder="0"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -100,7 +100,7 @@ class="px-2 max-w-6xl mx-auto pt-2 pb-24"
   <h2 class="font-serif text-1xl md:text-3xl lg:text-4xl text-white mb-0 leading-[0.9]">
     3D Visual Development — <br /> Concept to Final Render
   </h2>
-  <p class="pt-4 text-[13px] md:text-[15px]"><span class="font-bold">3D Visual Artist for [Dragon Age: The Veilguard] (EA) </span>— Sole creator of the game's logo, promotional environment visuals, and VFX, <br />
+  <p class="pt-4 text-[14px] md:text-[16px]"><span class="font-bold">3D Visual Artist for [Dragon Age: The Veilguard] (EA) </span>— Sole creator of the game's logo, promotional environment visuals, and VFX, <br />
     from early concept through final high-end render (Cinema 4D / Octane / Redshift). Final work shipped as the game's official logo <br />
     and appeared in every trailer and ad campaign.</p>
 </div>
@@ -110,8 +110,8 @@ class="px-2 max-w-6xl mx-auto pt-2 pb-24"
   ))}
   <div class="aspect-video w-full">
     <iframe
-      class="w-full h-full"
-      src="https://www.youtube.com/embed/4F3N4Lxw4_Y"
+      class="w-full h-full yt-lazy"
+      data-src="https://www.youtube.com/embed/4F3N4Lxw4_Y"
       title="YouTube video player"
       frameborder="0"
       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -125,7 +125,7 @@ class="px-2 max-w-6xl mx-auto pt-2 pb-24"
   <h2 class="font-serif text-1xl md:text-3xl lg:text-4xl text-white mb-0 leading-[0.9]">
     Game Interface Design — <br /> UX/UI & Visual Branding
   </h2>
-  <p class="pt-4 text-[13px] md:text-[15px]"><span class="font-bold">Worked on UX/UI design for [Dead Space] </span>— Creating player flows, interface systems, and visual assets. <br />Also explored logo and branding concepts, developing a cohesive visual language aligned with the project's creative direction.</p>
+  <p class="pt-4 text-[14px] md:text-[16px]"><span class="font-bold">Worked on UX/UI design for [Dead Space] </span>— Creating player flows, interface systems, and visual assets. <br />Also explored logo and branding concepts, developing a cohesive visual language aligned with the project's creative direction.</p>
 </div>
 <div class="space-y-6">
   {images.slice(3, 7).map((img) => (
@@ -138,7 +138,7 @@ class="px-2 max-w-6xl mx-auto pt-2 pb-24"
   <h2 class="font-serif text-1xl md:text-3xl lg:text-4xl text-white mb-0 leading-[0.9]">
     3D Illustration & Motion Design — <br /> Microsoft Experiences
   </h2>
-  <p class="pt-4 text-[13px] md:text-[15px]"><span class="font-bold">3D Visual Designer for Bing & Microsoft Ecosystem Products </span>— Designed and produced 3D illustration and <br />motion systems for Bing and Microsoft digital experiences. Led visual development from concept to final render,<br /> creating user-facing content across information, commerce, and interactive product surfaces.</p>
+  <p class="pt-4 text-[14px] md:text-[16px]"><span class="font-bold">3D Visual Designer for Bing & Microsoft Ecosystem Products </span>— Designed and produced 3D illustration and <br />motion systems for Bing and Microsoft digital experiences. Led visual development from concept to final render,<br /> creating user-facing content across information, commerce, and interactive product surfaces.</p>
 </div>
 <div class="space-y-6">
   {images.slice(7, 9).map((img) => (
@@ -156,14 +156,14 @@ class="px-2 max-w-6xl mx-auto pt-2 pb-24"
   <h2 class="font-serif text-1xl md:text-3xl lg:text-4xl text-white mb-0 leading-[0.9]">
     Executive Production & Creative Supervision — <br /> Youtube Hello Kitty Super Cute Series
   </h2>
-  <p class="pt-4 text-[13px] md:text-[15px]"><span class="font-bold">Executive Producer for a High-Performing YouTube Original Series (1M-5M+ Views per Episode) </span>— Oversaw the end-to-end creative direction of a character IP-based YouTube series, <br />serving as the executive producer on behalf of the IP company. Led cross-functional review and approval across story development, illustration, animation, <br />music, voice-over, and final video production, ensuring brand consistency and narrative quality throughout the series. <br /><br /> </p>
+  <p class="pt-4 text-[14px] md:text-[16px]"><span class="font-bold">Executive Producer for a High-Performing YouTube Original Series (1M-5M+ Views per Episode) </span>— Oversaw the end-to-end creative direction of a character IP-based YouTube series, <br />serving as the executive producer on behalf of the IP company. Led cross-functional review and approval across story development, illustration, animation, <br />music, voice-over, and final video production, ensuring brand consistency and narrative quality throughout the series. <br /><br /> </p>
 </div>
 <div class="space-y-6">
   <Image src={more} alt="" widths={[400, 800, 1200, 1600]} sizes="100vw" class="w-full h-auto" loading="lazy" />
   <div class="aspect-video w-full">
     <iframe
-      class="w-full h-full"
-      src="https://www.youtube.com/embed/xNcPN4DWBJQ"
+      class="w-full h-full yt-lazy"
+      data-src="https://www.youtube.com/embed/xNcPN4DWBJQ"
       title="YouTube video player"
       frameborder="0"
       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -185,6 +185,11 @@ class="px-2 max-w-6xl mx-auto pt-2 pb-24"
     const reveal = () => {
       gate.style.display = "none";
       content.hidden = false;
+      document.querySelectorAll(".yt-lazy").forEach((iframe) => {
+        if (!iframe.src && iframe.dataset.src) {
+          iframe.src = iframe.dataset.src;
+        }
+      });
     };
 
     const hash = async (text) => {
@@ -217,4 +222,5 @@ class="px-2 max-w-6xl mx-auto pt-2 pb-24"
       }
     });
   </script>
+
 </Layout>
